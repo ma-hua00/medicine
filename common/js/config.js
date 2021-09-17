@@ -273,7 +273,7 @@ export default {
 }
 
 
-//移动端（iphone6,7,8）动态设置基于html fontSize 10px = 1rem;
+//移动端（iphone6,7,8）动态设置基于html fontSize 100px = 1rem;
 !(function (doc, win) {
   var docEle = doc.documentElement,
     // evt = "onorientationchange" in window ? "orientationchange" : "resize",

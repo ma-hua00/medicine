@@ -3,6 +3,7 @@ export default {
   // 默认请求地址
   // baseUrl:"http://192.168.0.246:8253/",
   // baseUrl:"http://192.168.0.243:8253/",
+  // baseUrl: 'http://192.168.0.246:8235/',
 
   // 本地配置代理
   baseUrl:'api/',
@@ -188,5 +189,19 @@ export default {
       // 失能评估
       disability:"information/disability"
     }
+  },
+  // 中药模块
+  medicine: {
+    // 记录
+    record: 'prescription/record',
+
+    // 明细
+    detailed: 'prescription/detailed',
+
+    // 煎煮状态
+    cook: 'prescription/cook',
+
+    // 配送状态
+    distribution: 'prescription/distribution'
   }
 }
