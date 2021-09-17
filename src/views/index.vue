@@ -8,8 +8,6 @@
 
     <div class='footer'></div>
 
-    <Dialog ref="da"></Dialog>
-
   </div>
 
 </template>
@@ -24,11 +22,9 @@ export default {
 
 
   mounted(){
-    this.$refs.da.show =true;
   },
 
   methods: {
-    get(){}
   }
 }
 </script>
