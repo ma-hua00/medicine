@@ -1,6 +1,11 @@
 <template>
   <!-- j-full-curbox 当前元素占满全屏  j-flex-col flex垂直布局 -->
-  <div class='j-full-curbox j-flex-col' style="padding: .1rem; background-color: #F5F5F5; font-family: 'PingFang SC'">
+  <div
+    class='j-full-curbox j-flex-col'
+    style="padding: .1rem;
+    background-color: #F5F5F5;
+    font-family: 'PingFang SC'"
+  >
 <!--    <Card :key="item.id" v-for="(item, index) in cardData" :bordered="false">-->
 <!--      <div class="card-title" slot="title">-->
 <!--        <span>{{item.diseaseName || '开干咳嗽病-风热犯肺症'}}</span>-->
@@ -21,7 +26,11 @@
       </div>
       <div class="card-medicine mt-15 pb-15">
         <span class="font14 medicine-content" style="color: #666">黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、</span>
-        <span class="look-more font10 mt-5" style="color: #FD9F72">查看详情>></span>
+        <span
+            class="look-more font10 mt-5"
+            style="color: #FD9F72"
+            @click="goToDetail"
+        >查看详情>></span>
       </div>
       <div class="card-distribution font12">
         <span>{{'配送中'}}</span>
@@ -58,7 +67,7 @@ export default {
   },
 
   created(){
-    this.getRecord()
+    // this.getRecord()
   },
 
 
@@ -77,6 +86,10 @@ export default {
       this.$post(this.$api.medicine.record, data).then(res => {
             console.log(res)
       })
+    },
+    // 点击进入处方明细
+    goToDetail() {
+      this.$router.push('/detail')
     }
   }
 }
