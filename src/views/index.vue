@@ -1,55 +1,56 @@
 <template>
   <!-- j-full-curbox 当前元素占满全屏  j-flex-col flex垂直布局 -->
-  <div
-    class='j-full-curbox j-flex-col'
+  <BetterScroll
+    v-if="cardData.length"
+    class="Bscroll"
+    @scrollToEnd="searchMore"
+    :pullup="true"
+    :data="cardData"
+    ref="Bscroll"
     style="padding: .1rem;
-    background-color: #F5F5F5;
-    font-family: 'PingFang SC'"
+    background-color: #F5F5F5;"
   >
-<!--    <Card :key="item.id" v-for="(item, index) in cardData" :bordered="false">-->
-<!--      <div class="card-title" slot="title">-->
-<!--        <span>{{item.diseaseName || '开干咳嗽病-风热犯肺症'}}</span>-->
-<!--        <i class="icon iconfont icon-icon"/>-->
-<!--        <span class="title-time">{{item.visitTime || '2021年09月14号'}}</span>-->
-<!--      </div>-->
-<!--    </Card>-->
-
-    <Card :bordered="false" class="card">
-      <div class="card-title font14" slot="title">
-        <span style="font-weight: 700">{{'开干咳嗽病-风热犯肺症'}}</span>
-        <i class="icon iconfont icon-icon" style="margin-left: 10px; color: #FD9F72; font-weight: 700"/>
-        <span class="title-time font10">{{'2021年09月14号'}}</span>
-      </div>
-      <div class="card-healer mt-15">
-        <h4 class="font16">张医生</h4>
-        <p class="font12 mt-10" style="color: #999999">浙江省杭州市中医院 中医科</p>
-      </div>
-      <div class="card-medicine mt-15 pb-15">
-        <span class="font14 medicine-content" style="color: #666">黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、黄只10g、</span>
-        <span
+      <Card
+        v-for="(item, index) in cardData"
+        :key="index"
+        :bordered="false"
+        class="card mb-20"
+      >
+        <div class="card-title font14" slot="title">
+          <span style="font-weight: 700">{{item.diseaseName}}</span>
+          <i class="icon iconfont icon-icon" style="margin-left: 10px; color: #FD9F72; font-weight: 700"/>
+          <span class="title-time font10">{{handleVisitTime(item.visitTime)}}</span>
+        </div>
+        <div class="card-healer mt-15">
+          <h4 class="font16">{{item.doctorName}}</h4>
+          <p class="font12 mt-10" style="color: #999999">{{item.hospitalName + ' ' + item.deptName}}</p>
+        </div>
+        <div class="card-medicine mt-15 pb-15">
+          <span class="font14 medicine-content" style="color: #666"> {{handleDrugName(item.drugList)}}</span>
+          <span
             class="look-more font10 mt-5"
             style="color: #FD9F72"
-            @click="goToDetail"
-        >查看详情>></span>
-      </div>
-      <div class="card-distribution font12">
-        <span>{{'配送中'}}</span>
-        <div class="distribution-icon ml-10">
-          <i class="icon iconfont icon-songhuo" style="color: #fff;"/>
+            @click="goToDetail(item.prescriptionId)"
+          >查看详情>></span>
         </div>
-        <div v-for="item in [1,2,3]" class="circle"></div>
-      </div>
-      <div class="card-footer font16">
-        <span style="color:#CC5015;">{{'处方订单号: 0000000001'}}</span>
-        <span class="font10" style="float: right">{{'就诊人: ' + '小红'}}</span>
-      </div>
-    </Card>
-
-  </div>
-
+        <div class="card-distribution font12">
+          <span>{{'配送中'}}</span>
+          <div class="distribution-icon ml-10">
+            <i class="icon iconfont icon-songhuo" style="color: #fff;"/>
+          </div>
+          <div v-for="item in [1,2,3]" class="circle"></div>
+        </div>
+        <div class="card-footer font16">
+          <span style="color:#CC5015;">{{'处方订单号: ' + item.prescriptionId}}</span>
+          <span class="font10" style="float: right">{{'就诊人: ' + item.patName}}</span>
+        </div>
+      </Card>
+  </BetterScroll>
 </template>
 
 <script>
+import {handleTime} from "../../common/js/handle";
+
 export default {
   data () {
     return {
@@ -67,11 +68,25 @@ export default {
   },
 
   created(){
-    // this.getRecord()
+    this.getRecord()
   },
 
-
   mounted(){
+  },
+
+  computed: {
+    // 处理处方列表的名字
+    handleDrugName() {
+      return function (value) {
+        return value.map(item => {
+          return item.drugName + item.drugNumber.slice(0, item.drugNumber.indexOf('.')) + 'g'
+        }).join('、')
+      }
+    },
+    // 处理时间
+    handleVisitTime() {
+      return handleTime()
+    }
   },
 
   methods: {
@@ -84,17 +99,24 @@ export default {
         size: this.size
       }
       this.$post(this.$api.medicine.record, data).then(res => {
-            console.log(res)
+        this.cardData = res.data.list
       })
     },
     // 点击进入处方明细
-    goToDetail() {
-      this.$router.push('/detail')
-    }
+    goToDetail(id) {
+      this.$router.push({path: '/detail', query: {prescriptionId: id}} )
+    },
+    // 上拉加载更多
+    searchMore() {
+      console.log(111)
+    },
   }
 }
 </script>
 <style lang='scss' scoped>
+  .Bscroll {
+    height: 100%;
+  }
 
   .card {
     color: #333333;

@@ -294,13 +294,13 @@ export default {
 
 Date.prototype.format = function (fmt) { //author: meizz 
   var cNumber = ["日", "一", "二", "三", "四", "五", "六"];
-  var o = {
-    "M+": this.getMonth() + 1, //月份 
-    "d+": this.getDate(), //日 
-    "h+": this.getHours(), //小时 
-    "m+": this.getMinutes(), //分 
-    "s+": this.getSeconds(), //秒
-    'w+': cNumber[this.getUTCDay()], //星期
+    var o = {
+      "M+": this.getMonth() + 1, //月份
+      "d+": this.getDate(), //日
+      "h+": this.getHours(), //小时
+      "m+": this.getMinutes(), //分
+      "s+": this.getSeconds(), //秒
+      'w+': cNumber[this.getUTCDay()], //星期
     "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
     "S": this.getMilliseconds() //毫秒 
   };

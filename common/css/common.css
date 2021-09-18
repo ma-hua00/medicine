@@ -146,6 +146,12 @@ input[type="checkbox"]:checked::after{content: "";position: absolute;left: 50%;t
 .mr-20{margin-right:.2rem;}
 .ml-20{margin-left: .2rem;}
 
+.m-25{margin:.25rem;}
+.mb-25{margin-bottom:.25rem;}
+.mt-25{margin-top: .25rem;}
+.mr-25{margin-right:.25rem;}
+.ml-25{margin-left: .25rem;}
+
 .m-30{margin:.3rem;}
 .mb-30{margin-bottom:.3rem;}
 .mt-30{margin-top: .3rem;}
@@ -196,6 +202,7 @@ input[type="checkbox"]:checked::after{content: "";position: absolute;left: 50%;t
 .font10 { font-size: .10rem;}
 .font12 { font-size: .12rem;}
 .font14 { font-size: .14rem;}
+.font15 { font-size: .15rem;}
 .font16 { font-size: .16rem;}
 .font18 { font-size: .18rem;}
 .font20 { font-size: .20rem;}
