@@ -6,7 +6,7 @@
       class="detail-method mb-10"
       :bordered="false"
     >
-      <h4 class="disease-name font18" style="color: #FD9F72">{{detailData.diseaseName}}</h4>
+      <h4 class="disease-name font18" style="color: #FD9F72">{{detailData.diseaseName + '—' + detailData.symptom}}</h4>
       <lines class="mt-5"/>
       <ul  class="prescription mt-10">
         <li
@@ -36,7 +36,7 @@
         <div>{{detailData.instruction.slice(detailData.instruction.indexOf(')') + 1)}}</div>
       </div>
       <div class="total-money mt-15 font14">
-        <span>{{detailData.totalAmount + '元'}}</span>
+        <span>{{'总金额: ' + detailData.totalAmount + '元'}}</span>
       </div>
     </Card>
     <Card
